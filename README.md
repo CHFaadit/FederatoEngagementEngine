@@ -38,6 +38,6 @@ This project enhances user engagement on the Federato RiskOps platform by implem
 
 ## 📩 Team
 - **Team Name:** The Federators
-- **Members:** Zayaan, Aadit, Baldeep, Ayaan
+- **Members:** Aadit, Baldeep, Ayaan, Zayaan
 
 💡 *Optimizing engagement through data-driven insights!*
