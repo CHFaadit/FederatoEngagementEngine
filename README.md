@@ -23,13 +23,13 @@ This project enhances user engagement on the Federato RiskOps platform by implem
 ## 🛠 Tech Stack
 
 ### Frontend
-- **Languages:** JavaScript, HTML, CSS
+- **Languages:** [JavaScript, HTML, CSS]
 - **Framework:** [three.js]
 - **Styling:** [Tailwind CSS / Bootstrap / Material UI]
 - **Visualization:** [pythree.js / Plotly / NetworkX / Matplotlib]
 
 ### Backend
-- **Languages:** Python, JavaScript
+- **Languages:** [Python, JavaScript]
 - **Server:** [Node.js with Express / Python Flask]
 - **Machine Learning & Modeling:** [scikit-learn / XGBoost / NumPy / pandas / Matplotlib]
 
