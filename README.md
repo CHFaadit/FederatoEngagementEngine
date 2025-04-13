@@ -31,7 +31,7 @@ This project enhances user engagement on the Federato RiskOps platform by implem
 ### Backend
 - **Languages:** [Python, JavaScript]
 - **Server:** [Node.js with Express / Python Flask]
-- **Machine Learning & Modeling:** [scikit-learn / XGBoost / NumPy / pandas / Matplotlib]
+- **Machine Learning & Modeling:** [scikit-learn / XGBoost / NumPy / Pandas / Matplotlib]
 
 ## 📝 Devpost Submission
 [🔗 View our project on Devpost](https://devpost.com/software/adaptive-workflow-engine-for-user-engagement-optimization?ref_content=user-portfolio&ref_feature=in_progress)
