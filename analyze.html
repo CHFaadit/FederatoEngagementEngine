@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causal Inference Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .image-container img {
+            max-width: 60%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+
+        .image-container .figure-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .image-container .figure-description {
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .image-container + .image-container {
+            margin-top: 50px;
+        }
+        .home-btn {
+            position: absolute; /* Position the button absolutely */
+            top: 20px; /* Distance from the top */
+            left: 20px; /* Distance from the left */
+            padding: 10px 20px; /* Padding for the button */
+            background-color: #a400b3; /* Blue background color */
+            color: white; /* White text color */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+            z-index: 10; /* Ensure it's above other elements */
+            }
+
+        .home-btn:hover {
+            background-color: #c800ff; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <a href="/index.html" id="indexBtn" class="btn home-btn">Home</a>
+    <h1>Causal Inference Analysis</h1>
+
+    <!-- Image 1 -->
+    <div class="image-container">
+        <img src="images/peak.png" alt="Image 1">
+        <div class="figure-title">Figure 1: Peak Usage Hours</div>
+        <div class="figure-description">The peak user activity occurs between 3-7pm, with the highest traffic at 3pm, making it the optimal time to schedule in-app prompts and notifications to engage users and help them discover new features. This time window maximizes user interaction, keeping them hooked on the app.</div>
+    </div>
+
+    <!-- Image 2 -->
+    <div class="image-container">
+        <img src="images/session-start.png" alt="Image 2">
+        <div class="figure-title">Figure 2: Average Session Duration by Country</div>
+    </div>
+
+    <!-- Image 3 -->
+    <div class="image-container">
+        <img src="images/india.png" alt="Image 3">
+        <div class="figure-title">Figure 3: Top 10 Events India Spends the Most Time On</div>
+        <div class="figure-description">India is the top country, and the most used feature is account-lines::widget:render. We need to determine if this feature is a bottleneck or a valuable feature where users spend significant time. If it's a bottleneck, we should optimize it; if it's a useful feature, we can push Indian users to it by analyzing their paths with our model. The account-lines::widget:render likely displays key account-related information like transactions or policy details.</div>
+    </div>
+
+    <div class="image-container">
+      <img src="images/retention.png" alt="Image 4">
+      <div class="figure-title">Figure 4: Retention for Frequently Interacted Features</div>
+      <div class="figure-description">The feature goals-and-rles::new-goal::cancel-click is likely related to users interacting with goal creation and then canceling. Since users spend the most time after this, optimizing the process can help increase engagement and retention.</div>
+    </div>
+
+</body>
+</html>

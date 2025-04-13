@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feature Path Selection</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      text-align: center;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .prediction-container {
+      margin-bottom: 20px;
+    }
+
+    .dropdown {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .canvas-container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      border: 1px solid #ccc;
+      margin: 20px auto;
+      background-color: #fff;
+    }
+
+    .node {
+    position: absolute;
+    width: 80px;  /* Increased size */
+    height: 80px; /* Increased size */
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 8px; /* Increased font size */
+}
+
+
+    .add-node {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .remove-node {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .final-prediction {
+      color: #007BFF;
+      font-weight: bold;
+      font-size: 1.5em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .final-prediction:hover {
+      color: #ff4500; 
+    }
+    
+    .home-btn {
+      position: absolute; /* Position the button absolutely */
+      top: 20px; /* Distance from the top */
+      left: 20px; /* Distance from the left */
+      padding: 10px 20px; /* Padding for the button */
+      background-color: #a400b3; /* Blue background color */
+      color: white; /* White text color */
+      text-decoration: none; /* Remove underline */
+      border-radius: 5px; /* Rounded corners */
+      font-size: 16px; /* Font size */
+      z-index: 10; /* Ensure it's above other elements */
+    }
+
+    .home-btn:hover {
+      background-color: #c800ff; /* Darker blue on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/index.html" id="indexBtn" class="btn home-btn">Home</a>
+    <h1>Feature Path Selection</h1>
+    
+    <!-- Section for dropdown and prediction -->
+    <div class="prediction-container">
+      <h2>Select an Event Type</h2>
+      
+        <!-- Dropdown for selecting event types -->
+    <div>
+      <label for="event-dropdown">Choose an Event Type:</label>
+      <select id="event-dropdown" class="dropdown">
+        <option value="" disabled selected>Select an Event</option>
+        <option value="application-window-opened">application-window-opened</option>
+        <option value="dashboard:my-book::view">dashboard:my-book::view</option>
+        <option value="dashboard:my-book:layout:render">dashboard:my-book:layout:render</option>
+        <option value="dashboard:my-book:widget:render">dashboard:my-book:widget:render</option>
+        <option value="dashboard:my-book:configurable-table:render">dashboard:my-book:configurable-table:render</option>
+        <option value="session_start">session_start</option>
+        <option value="session_end">session_end</option>
+        <option value=":all-accounts:layout:render">:all-accounts:layout:render</option>
+        <option value=":all-accounts::view">:all-accounts::view</option>
+        <option value=":all-accounts:configurable-table:render">:all-accounts:configurable-table:render</option>
+        <option value=":all-accounts:widget:render">:all-accounts:widget:render</option>
+        <option value="account-lines::layout:render">account-lines::layout:render</option>
+        <option value="account-lines:::view">account-lines:::view</option>
+        <option value="account:::view">account:::view</option>
+        <option value="account-lines::widget:render">account-lines::widget:render</option>
+        <option value="account-lines::configurable-table:render">account-lines::configurable-table:render</option>
+        <option value="::nav-header:action-center-click">::nav-header:action-center-click</option>
+        <option value="action-center:::view">action-center:::view</option>
+        <option value="action-center:::close-click">action-center:::close-click</option>
+        <option value="action-center:action-details::view">action-center:action-details::view</option>
+        <option value="all-accounts:new-business:layout:render">all-accounts:new-business:layout:render</option>
+        <option value="all-accounts:new-business::view">all-accounts:new-business::view</option>
+        <option value="all-accounts:new-business:accounts-table:account-click">all-accounts:new-business:accounts-table:account-click</option>
+        <option value="submissions:all-policy:configurable-table:render">submissions:all-policy:configurable-table:render</option>
+        <option value="submissions:all-policy::view">submissions:all-policy::view</option>
+        <option value="triaged-submission-list:my-book:configurable-table:render">triaged-submission-list:my-book:configurable-table:render</option>
+        <option value="triaged-submission-list:my-book::view">triaged-submission-list:my-book::view</option>
+        <option value="submissions:all-exposures::view">submissions:all-exposures::view</option>
+        <option value="submissions:exposures-create::view">submissions:exposures-create::view</option>
+        <option value="dashboard:my-book::action-click">dashboard:my-book::action-click</option>
+        <option value="action-center:action-details:response-form:submit-click">action-center:action-details:response-form:submit-click</option>
+        <option value="action-center:::submit-click">action-center:::submit-click</option>
+        <option value="account-lines::templeton-docs:create-document-click">account-lines::templeton-docs:create-document-click</option>
+        <option value="dashboard:my-book:recent-actions-table:action-click">dashboard:my-book:recent-actions-table:action-click</option>
+        <option value="dashboard:my-book:recent-actions-table:account-click">dashboard:my-book:recent-actions-table:account-click</option>
+        <option value="EMPTY">EMPTY</option>
+        <option value="assigned-email-thread:::email-thread-expansion">assigned-email-thread:::email-thread-expansion</option>
+        <option value="::configurable-table:render">::configurable-table:render</option>
+        <option value="::widget:render">::widget:render</option>
+        <option value="::layout:render">::layout:render</option>
+        <option value="account-property-rating:perils:layers:add-click">account-property-rating:perils:layers:add-click</option>
+        <option value="account-lines:::change-rating-click">account-lines:::change-rating-click</option>
+        <option value="account-property-rating:perils:configurable-table:render">account-property-rating:perils:configurable-table:render</option>
+        <option value="account-property-rating:perils::view">account-property-rating:perils::view</option>
+        <option value="account-auto-rating:::view">account-auto-rating:::view</option>
+        <option value="agency-dashboard::layout:render">agency-dashboard::layout:render</option>
+        <option value="agency-dashboard:::view">agency-dashboard:::view</option>
+        <option value="agency-dashboard::widget:render">agency-dashboard::widget:render</option>
+        <option value="agency-dashboard::configurable-table:render">agency-dashboard::configurable-table:render</option>
+        <option value="agency-account::layout:render">agency-account::layout:render</option>
+        <option value="agency-account:::view">agency-account:::view</option>
+        <option value="agency-account::widget:render">agency-account::widget:render</option>
+        <option value="agency-account::configurable-table:render">agency-account::configurable-table:render</option>
+        <option value="submissions:all-ingest_policy_through_pd:configurable-table:render">submissions:all-ingest_policy_through_pd:configurable-table:render</option>
+        <option value="submissions:all-ingest_policy_through_pd::view">submissions:all-ingest_policy_through_pd::view</option>
+        <option value="submissions:ingest_policy_through_pd-create::view">submissions:ingest_policy_through_pd-create::view</option>
+        <option value="account-lines:::action-center-click">account-lines:::action-center-click</option>
+        <option value="submissions:policy-create::view">submissions:policy-create::view</option>
+        <option value="submissions:all-account:configurable-table:render">submissions:all-account:configurable-table:render</option>
+        <option value="submissions:all-account::view">submissions:all-account::view</option>
+        <option value="::nav-header:help-menu-opened">::nav-header:help-menu-opened</option>
+        <option value="submissions:exposures-create::submit-click">submissions:exposures-create::submit-click</option>
+        <option value="submissions:all-exposures:configurable-table:render">submissions:all-exposures:configurable-table:render</option>
+        <option value="submissions:policy-definition::view">submissions:policy-definition::view</option>
+        <option value="submissions:all-renewal:configurable-table:render">submissions:all-renewal:configurable-table:render</option>
+        <option value="submissions:all-renewal::view">submissions:all-renewal::view</option>
+        <option value="submissions:policy-create:configurable-table:render">submissions:policy-create:configurable-table:render</option>
+        <option value="submissions:policy-create::submit-click">submissions:policy-create::submit-click</option>
+        <option value="submissions:policy-definition::submit-click">submissions:policy-definition::submit-click</option>
+        <option value="submissions:triaged_submissions-definition::view">submissions:triaged_submissions-definition::view</option>
+        <option value="triaged-submission:triaged_submissions-definition:layout:render">triaged-submission:triaged_submissions-definition:layout:render</option>
+        <option value="triaged-submission:triaged_submissions-definition::view">triaged-submission:triaged_submissions-definition::view</option>
+        <option value="triaged-submission:triaged_submissions-definition:widget:render">triaged-submission:triaged_submissions-definition:widget:render</option>
+        <option value="triaged-submission-list:triaged_submissions-definition:configurable-table:render">triaged-submission-list:triaged_submissions-definition:configurable-table:render</option>
+        <option value="triaged-submission-list:triaged_submissions-definition::view">triaged-submission-list:triaged_submissions-definition::view</option>
+        <option value="submissions:policy-definition:configurable-table:render">submissions:policy-definition:configurable-table:render</option>
+        <option value="account-auto-rating::configurable-table:render">account-auto-rating::configurable-table:render</option>
+        <option value="triaged-submission:triaged_submissions-definition::winnability-click">triaged-submission:triaged_submissions-definition::winnability-click</option>
+        <option value="goals-and-rules:goals:configurable-table:render">goals-and-rules:goals:configurable-table:render</option>
+        <option value="goals-and-rules:goals::view">goals-and-rules:goals::view</option>
+        <option value="goals-and-rules:goal-definition::view">goals-and-rules:goal-definition::view</option>
+        <option value="classification-rules::configurable-table:render">classification-rules::configurable-table:render</option>
+        <option value="classification-rule:::view">classification-rule:::view</option>
+        <option value="classification-rule::configurable-table:render">classification-rule::configurable-table:render</option>
+        <option value="dashboard:portfolio-insights:layout:render">dashboard:portfolio-insights:layout:render</option>
+        <option value="dashboard:portfolio-insights::view">dashboard:portfolio-insights::view</option>
+        <option value="dashboard:portfolio-insights:widget:render">dashboard:portfolio-insights:widget:render</option>
+        <option value="submissions:all-auto:configurable-table:render">submissions:all-auto:configurable-table:render</option>
+        <option value="submissions:all-auto::view">submissions:all-auto::view</option>
+        <option value="account-property-rating:perils:perils-table:add-click">account-property-rating:perils:perils-table:add-click</option>
+        <option value="account-property-rating:perils:perils-table:edit-click">account-property-rating:perils:perils-table:edit-click</option>
+        <option value="account-property-rating:perils:model-request-details:save-click">account-property-rating:perils:model-request-details:save-click</option>
+        <option value="submissions:exposures-definition::view">submissions:exposures-definition::view</option>
+        <option value="submissions:all-terrorism::view">submissions:all-terrorism::view</option>
+        <option value="account-lines::construction-excess-rater:create-document-click">account-lines::construction-excess-rater:create-document-click</option>
+        <option value="account-workers-comp-rating:::view">account-workers-comp-rating:::view</option>
+        <option value="account-property-rating::configurable-table:render">account-property-rating::configurable-table:render</option>
+        <option value="::nav-header:user-signed-out">::nav-header:user-signed-out</option>
+        <option value="all-accounts:new-business:configurable-table:render">all-accounts:new-business:configurable-table:render</option>
+        <option value="all-accounts:new-business:widget:render">all-accounts:new-business:widget:render</option>
+        <option value="account-broker-view::layout:render">account-broker-view::layout:render</option>
+        <option value="account-broker-view:::view">account-broker-view:::view</option>
+        <option value="account-broker-view::widget:render">account-broker-view::widget:render</option>
+        <option value="account-broker-view::configurable-table:render">account-broker-view::configurable-table:render</option>
+      </select>
+    </div>
+
+    <!-- Canvas for nodes -->
+    <div class="canvas-container" id="canvas-container">
+      <!-- Nodes will be dynamically added here -->
+      <button class="add-node" id="add-node">+</button>
+      <button class="remove-node" id="remove-node">-</button>
+    </div>
+
+    <!-- Display predicted event -->
+    <div id="predicted-event" class="predicted-event"></div>
+  </div>
+
+  <script>
+    const canvasContainer = document.getElementById('canvas-container');
+    const addNodeButton = document.getElementById('add-node');
+    const removeNodeButton = document.getElementById('remove-node');
+    const eventDropdown = document.getElementById('event-dropdown');
+    const predictedEventDiv = document.getElementById('predicted-event');
+    let nodeCount = 0;
+    let currentPath = []; // Array to store the current path of events
+
+    // Function to add a node
+    addNodeButton.addEventListener('click', () => {
+  const selectedEvent = eventDropdown.value;
+  if (!selectedEvent) {
+    alert('Please select an event type first!');
+    return;
+  }
+
+  nodeCount++;
+  const node = document.createElement('div');
+  node.className = 'node';
+  node.textContent = selectedEvent;
+
+  // Ensure nodes stay within the container (6 nodes in each row)
+  const maxNodesPerRow = 6;  // Updated to 6 nodes per row
+  const spacing = 80;         // Space between nodes, adjusted for better fit
+
+  // Calculate row and column based on nodeCount
+  const row = Math.floor((nodeCount - 1) / maxNodesPerRow);  // Determine which row the node should be in
+  const col = (nodeCount - 1) % maxNodesPerRow;              // Determine which column the node should be in
+
+  // Position the node, move it a bit to the right
+  const leftOffset = 2; // Move all nodes 2px to the right
+  node.style.left = `${col * spacing + 9 + leftOffset}px`;  // Adjust left position
+  node.style.top = `${row * spacing + 9}px`;   // Adjust top position based on row
+
+  canvasContainer.appendChild(node);
+
+  // Add the selected event to the current path
+  currentPath.push(selectedEvent);
+
+  // Call Flask backend to compute next possible node
+  computeNextNode();
+});
+
+// Function to remove the last node
+removeNodeButton.addEventListener('click', () => {
+      const nodes = document.querySelectorAll('.node');
+      if (nodes.length > 0) {
+        canvasContainer.removeChild(nodes[nodes.length - 1]);
+        nodeCount--;
+        currentPath.pop(); // Remove the last event from the current path
+      }
+
+      // Call Flask backend to compute next possible node
+      computeNextNode();
+    });
+
+
+
+    // Function to compute the next possible node using Flask backend
+    async function computeNextNode() {
+      try {
+        const response = await fetch('http://127.0.0.1:3002/compute-next-node', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            path: currentPath, // Send the current path
+            session_length: currentPath.length, // Send the session length
+          }),
+        });
+
+        const data = await response.json();
+        const predictedEvent = data.predicted_event;
+
+        // Display the predicted event
+        predictedEventDiv.textContent = `Next Predicted Event: ${predictedEvent}`;
+      } catch (error) {
+        console.error('Error computing next node:', error);
+        predictedEventDiv.textContent = 'Error predicting next event.';
+      }
+    }
+  </script>
+</body>
+</html>

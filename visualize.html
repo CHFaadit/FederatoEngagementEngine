@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Network Visualization</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <a href="/index.html" id="indexBtn" class="btn home-btn">Home</a>
+    <h1>3D Network Visualization</h1>
+    <p>Visualize the cookies to see the main hotspots.</p>
+    <div class="buttons">
+      <button id="visualizeBtn" class="btn">Visualize</button>
+    </div>
+    <div class="content">
+      <!-- Container for the 3D graph -->
+      <div id="3d-graph" class="graph-container"></div>
+      <!-- Textbox for displaying node information -->
+      <div id="info-box" class="info-box">
+        <h3>Node Information</h3>
+        <p><strong>Name:</strong> <span id="node-name">-</span></p>
+        <p><strong>Degree:</strong> <span id="node-degree">-</span></p>
+      </div>
+    </div>
+    <div id="output" class="output"></div>
+  </div>
+  <script type="module" src="visualize.js"></script>
+</body>
+</html>
